@@ -1,0 +1,70 @@
+stages:
+  answer-questions:
+    cmd: >-
+      python answer_questions.py
+      --dataset-path ${dataset.path}
+      --dataset-name ${dataset.name}
+      --dataset-split ${dataset.split}
+      --model ${qa.model}
+      --temperature ${qa.temperature}
+      --system-prompt-filepath data/raw/system-prompts/${qa.system_prompt}
+      --user-prompt-template-filepath data/raw/user-prompt-templates/${qa.user_prompt_template}
+      --few-shot-examples-filepath data/raw/few-shot-examples/${qa.few_shot_examples}
+      --out data/generated/qa-results/
+    deps:
+      - answer_questions.py
+      - data/raw/system-prompts/${qa.system_prompt}
+      - data/raw/user-prompt-templates/${qa.user_prompt_template}
+      - data/raw/few-shot-examples/${qa.few_shot_examples}
+    outs:
+      - data/generated/qa-results/
+    params:
+      - dataset.path
+      - dataset.name
+      - dataset.split
+      - qa.model
+      - qa.temperature
+      - qa.system_prompt
+      - qa.user_prompt_template
+      - qa.few_shot_examples
+      - run
+  
+  evaluate-answers:
+    cmd: >-
+      python evaluate_answers.py
+      --dataset-path ${dataset.path}
+      --dataset-name ${dataset.name}
+      --dataset-split ${dataset.split}
+      --qa-dir data/generated/qa-results/
+      --out data/generated/evals/
+    deps:
+      - evaluate_answers.py
+      - data/generated/qa-results/
+    outs:
+      - data/generated/evals/
+    params:
+      - dataset.path
+      - dataset.name
+      - dataset.split
+
+  report:
+    cmd: >-
+      python report.py
+      --dataset-path ${dataset.path}
+      --dataset-name ${dataset.name}
+      --dataset-split ${dataset.split}
+      --qa-dir data/generated/qa-results/
+      --evals-dir data/generated/evals/
+      --out data/generated/reports/
+    deps:
+      - report.py
+      - data/generated/qa-results/
+      - data/generated/evals/
+    outs:
+      - data/generated/reports/results.jsonl
+    metrics:
+      - data/generated/reports/scores.json
+    params:
+      - dataset.path
+      - dataset.name
+      - dataset.split
