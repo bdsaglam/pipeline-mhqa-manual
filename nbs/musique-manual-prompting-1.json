@@ -4354,7 +4354,7 @@
                                         "qa": {
                                             "model": "llama-3-70b-tgi",
                                             "temperature": 0.1,
-                                            "system_prompt": "cte.txt",
+                                            "system_prompt": "cte-few.txt",
                                             "user_prompt_template": "cq.txt",
                                             "few_shot_examples": "empty.json"
                                         },
@@ -4572,7 +4572,7 @@
                                         "qa": {
                                             "model": "llama-3-70b-tgi",
                                             "temperature": 0.1,
-                                            "system_prompt": "cte.txt",
+                                            "system_prompt": "cte-few.txt",
                                             "user_prompt_template": "cq.txt",
                                             "few_shot_examples": "empty.json"
                                         },
@@ -4790,7 +4790,7 @@
                                         "qa": {
                                             "model": "llama-3-70b-tgi",
                                             "temperature": 0.1,
-                                            "system_prompt": "cte.txt",
+                                            "system_prompt": "cte-few.txt",
                                             "user_prompt_template": "cq.txt",
                                             "few_shot_examples": "empty.json"
                                         },
@@ -9368,7 +9368,7 @@
                                         "qa": {
                                             "model": "llama-3-70b-tgi",
                                             "temperature": 0.1,
-                                            "system_prompt": "cte.txt",
+                                            "system_prompt": "cte-few.txt",
                                             "user_prompt_template": "cq.txt",
                                             "few_shot_examples": "cte-2-shot.json"
                                         },
@@ -9586,7 +9586,7 @@
                                         "qa": {
                                             "model": "llama-3-70b-tgi",
                                             "temperature": 0.1,
-                                            "system_prompt": "cte.txt",
+                                            "system_prompt": "cte-few.txt",
                                             "user_prompt_template": "cq.txt",
                                             "few_shot_examples": "cte-2-shot.json"
                                         },
@@ -9804,7 +9804,7 @@
                                         "qa": {
                                             "model": "llama-3-70b-tgi",
                                             "temperature": 0.1,
-                                            "system_prompt": "cte.txt",
+                                            "system_prompt": "cte-few.txt",
                                             "user_prompt_template": "cq.txt",
                                             "few_shot_examples": "cte-2-shot.json"
                                         },
