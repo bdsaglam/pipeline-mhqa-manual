@@ -45,7 +45,7 @@ def process_example(
     result_file.unlink(missing_ok=True)
 
     try:
-        print(f"Answering the question in the sample {example_id}")
+        # print(f"Answering the question in the sample {example_id}")
         result = qa_pipeline(example)
         with open(result_file, "w") as f:
             f.write(json.dumps(result, ensure_ascii=False, indent=2))
