@@ -1,13 +1,13 @@
 dataset:
-  path: bdsaglam/musique
+  path: bdsaglam/musique-mini
   name: answerable
   split: validation
 
 qa:
   model: llama-3-70b-tgi
-  temperature: 0.1
-  system_prompt: no-role.txt
+  temperature: 1.5
+  system_prompt: cte/excellent-format-few.txt
   user_prompt_template: cq.txt
-  few_shot_examples: empty.json
+  few_shot_examples: cte-2-shot-delim-2.json
 
 run: 1
