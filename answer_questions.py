@@ -95,7 +95,7 @@ def main(
     qa_pipeline = BaselineSingleHop(qa_func, perfect_retrieval_func)
 
     # Process the samples
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=8) as executor:
         futures = [
             executor.submit(
                 process_example,
