@@ -1,0 +1,100 @@
+schema: '2.0'
+stages:
+  answer-questions:
+    cmd: python answer_questions.py --dataset-path bdsaglam/musique --dataset-name
+      answerable --dataset-split validation --model llama-3-70b-tgi --temperature
+      0.5 --system-prompt-filepath data/raw/system-prompts/cte/excellent-format-few.txt
+      --user-prompt-template-filepath data/raw/user-prompt-templates/cq.txt --few-shot-examples-filepath
+      data/raw/few-shot-examples/cte-2-shot-delim-1.json --out data/generated/qa-results/
+    deps:
+    - path: answer_questions.py
+      hash: md5
+      md5: 49586173609e6762588983d787932a31
+      size: 3735
+    - path: data/raw/few-shot-examples/cte-2-shot-delim-1.json
+      hash: md5
+      md5: 5ce5053d023f6717df1ab4adf4c31230
+      size: 1752
+    - path: data/raw/system-prompts/cte/excellent-format-few.txt
+      hash: md5
+      md5: 0ec3f1c4ba3d211136d1966eedf427bd
+      size: 502
+    - path: data/raw/user-prompt-templates/cq.txt
+      hash: md5
+      md5: ac4fa9e31f4b2f7d489ceaae22dbc7ea
+      size: 41
+    params:
+      params.yaml:
+        dataset.name: answerable
+        dataset.path: bdsaglam/musique
+        dataset.split: validation
+        qa.few_shot_examples: cte-2-shot-delim-1.json
+        qa.model: llama-3-70b-tgi
+        qa.system_prompt: cte/excellent-format-few.txt
+        qa.temperature: 0.5
+        qa.user_prompt_template: cq.txt
+        run: 3
+    outs:
+    - path: data/generated/qa-results/
+      hash: md5
+      md5: bd8e11f336bf0e7ac7c77afa754194fb.dir
+      size: 9813754
+      nfiles: 2418
+  evaluate-answers:
+    cmd: python evaluate_answers.py --dataset-path bdsaglam/musique --dataset-name
+      answerable --dataset-split validation --qa-dir data/generated/qa-results/ --out
+      data/generated/evals/
+    deps:
+    - path: data/generated/qa-results/
+      hash: md5
+      md5: bd8e11f336bf0e7ac7c77afa754194fb.dir
+      size: 9813754
+      nfiles: 2418
+    - path: evaluate_answers.py
+      hash: md5
+      md5: c8ce61d45d52c5112b749ceee603cb4c
+      size: 1940
+    params:
+      params.yaml:
+        dataset.name: answerable
+        dataset.path: bdsaglam/musique
+        dataset.split: validation
+    outs:
+    - path: data/generated/evals/
+      hash: md5
+      md5: 55ce7c5c45d4dd398d5e75b384ae6fc0.dir
+      size: 401543
+      nfiles: 2418
+  report:
+    cmd: python report.py --dataset-path bdsaglam/musique --dataset-name answerable
+      --dataset-split validation --qa-dir data/generated/qa-results/ --evals-dir data/generated/evals/
+      --out data/generated/reports/
+    deps:
+    - path: data/generated/evals/
+      hash: md5
+      md5: 55ce7c5c45d4dd398d5e75b384ae6fc0.dir
+      size: 401543
+      nfiles: 2418
+    - path: data/generated/qa-results/
+      hash: md5
+      md5: bd8e11f336bf0e7ac7c77afa754194fb.dir
+      size: 9813754
+      nfiles: 2418
+    - path: report.py
+      hash: md5
+      md5: f5772d2cb8a64a500df38942738f5e5b
+      size: 2148
+    params:
+      params.yaml:
+        dataset.name: answerable
+        dataset.path: bdsaglam/musique
+        dataset.split: validation
+    outs:
+    - path: data/generated/reports/results.jsonl
+      hash: md5
+      md5: 1fe19a3c65bc1b0180b8bf8f2cc31645
+      size: 9635737
+    - path: data/generated/reports/scores.json
+      hash: md5
+      md5: 7e266866b9965d67a112eb9eb6068cae
+      size: 478
