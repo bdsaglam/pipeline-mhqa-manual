@@ -24,6 +24,8 @@ load_dotenv()
 set_seed(89)
 
 
+UNSET = "UNSET"
+
 def perfect_retrieval_func(docs: list[dict], query: str):
     return [doc for doc in docs if doc["is_supporting"]]
 
@@ -61,11 +63,12 @@ def main(
     dataset_name: str = typer.Option(...),
     dataset_split: str = typer.Option(...),
     out: Path = typer.Option(...),
-    model: str = typer.Option("gpt-3.5-turbo"),
+    model: str = typer.Option("llama-3-70b-tgi"),
     temperature: float = typer.Option(0.1),
-    system_prompt_filepath: str = typer.Option(default="None"),
-    user_prompt_template_filepath: str = typer.Option(default="None"),
-    few_shot_examples_filepath: str = typer.Option(default="None"),
+    system_prompt_filepath: str = typer.Option(default=UNSET),
+    user_prompt_template_filepath: str = typer.Option(default=UNSET),
+    few_shot_examples_filepath: str = typer.Option(default=UNSET),
+    n_shot: int = typer.Option(0),
     ignore_errors: bool = typer.Option(False),
     resume: bool = typer.Option(False),
 ):
@@ -76,17 +79,17 @@ def main(
     # Prepare the QA pipeline
     qa_kwargs = {}
 
-    if system_prompt_filepath and system_prompt_filepath != "None":
+    if system_prompt_filepath and system_prompt_filepath != UNSET:
         with open(system_prompt_filepath) as f:
             qa_kwargs["system_prompt"] = f.read().strip()
 
-    if user_prompt_template_filepath and user_prompt_template_filepath != "None":
+    if user_prompt_template_filepath and user_prompt_template_filepath != UNSET:
         with open(user_prompt_template_filepath) as f:
             qa_kwargs["user_prompt_template"] = f.read().strip()
 
-    if few_shot_examples_filepath and few_shot_examples_filepath != "None":
+    if few_shot_examples_filepath and few_shot_examples_filepath != UNSET:
         with open(few_shot_examples_filepath) as f:
-            qa_kwargs["few_shot_examples"] = json.load(f)
+            qa_kwargs["few_shot_examples"] = json.load(f)[:n_shot]
 
     qa_func = make_qa_func(**qa_kwargs)
     openai_client = OpenAI(max_retries=3)

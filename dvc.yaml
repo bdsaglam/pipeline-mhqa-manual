@@ -10,6 +10,7 @@ stages:
       --system-prompt-filepath data/raw/system-prompts/${qa.system_prompt}
       --user-prompt-template-filepath data/raw/user-prompt-templates/${qa.user_prompt_template}
       --few-shot-examples-filepath data/raw/few-shot-examples/${qa.few_shot_examples}
+      --n-shot ${qa.n_shot}
       --out data/generated/qa-results/
     deps:
       - answer_questions.py
@@ -27,6 +28,7 @@ stages:
       - qa.system_prompt
       - qa.user_prompt_template
       - qa.few_shot_examples
+      - qa.n_shot
       - run
   
   evaluate-answers:
