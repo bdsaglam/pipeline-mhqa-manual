@@ -1,13 +1,14 @@
 dataset:
-  path: bdsaglam/musique
+  path: bdsaglam/musique-mini
   name: answerable
-  split: validation
+  split: train
 
 qa:
-  model: llama-3-70b-tgi
+  model: gpt-4o-mini
   temperature: 0.1
-  system_prompt: no-role.txt
+  system_prompt: ccot/format-thought.txt
   user_prompt_template: cq.txt
-  few_shot_examples: empty.json
+  few_shot_examples: ccot/ccot-2-shot-thought.json
+  n_shot: 0
 
-run: 1
+run: 0
