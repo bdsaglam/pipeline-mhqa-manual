@@ -1,5 +1,5 @@
 dataset:
-  path: bdsaglam/musique
+  path: bdsaglam/musique-mini
   name: answerable
   split: validation
 
@@ -9,6 +9,6 @@ qa:
   system_prompt: direct/helpful-output-format-few.txt
   user_prompt_template: cq.txt
   few_shot_examples: auto/direct.json
-  n_shot: 0
+  n_shot: 2
 
-run: 0
+run: 3
