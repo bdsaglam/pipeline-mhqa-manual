@@ -71,9 +71,9 @@ stages:
       - data/generated/evals/
     outs:
       - data/generated/reports/results.jsonl
+      - data/generated/reports/efficiency.json
     metrics:
       - data/generated/reports/scores.json
-      - data/generated/reports/efficiency.json
     params:
       - dataset.path
       - dataset.name
