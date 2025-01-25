@@ -3,22 +3,22 @@ stages:
   answer-questions:
     cmd: python answer_questions.py --dataset-path bdsaglam/musique-sweep --dataset-name
       answerable --dataset-split train --model llama-3-70b-tgi --temperature 0.5 --system-prompt-filepath
-      data/raw/system-prompts/cot/format-thought.txt --user-prompt-template-filepath
-      data/raw/user-prompt-templates/cq.txt --few-shot-examples-filepath data/raw/few-shot-examples/auto-interweave/cot.json
-      --n-shot 1 --out data/generated/qa-results/
+      data/raw/system-prompts/ccot/format-thought.txt --user-prompt-template-filepath
+      data/raw/user-prompt-templates/cq.txt --few-shot-examples-filepath data/raw/few-shot-examples/manual/ccot.json
+      --n-shot 2 --out data/generated/qa-results/
     deps:
     - path: answer_questions.py
       hash: md5
       md5: 4312a0fe50da3b1441e7322f45549de3
       size: 3792
-    - path: data/raw/few-shot-examples/auto-interweave/cot.json
+    - path: data/raw/few-shot-examples/manual/ccot.json
       hash: md5
-      md5: cd5585d4fb7c3e8c90167ab65cf0615d
-      size: 251732
-    - path: data/raw/system-prompts/cot/format-thought.txt
+      md5: b9de6e2f3e3bb4fab33910c73d596141
+      size: 1802
+    - path: data/raw/system-prompts/ccot/format-thought.txt
       hash: md5
-      md5: 5b3fd95e8626b43c62c2bdf35cf6d66b
-      size: 136
+      md5: 22a87d4da10f35f69b073bacd8d917f4
+      size: 148
     - path: data/raw/user-prompt-templates/cq.txt
       hash: md5
       md5: ac4fa9e31f4b2f7d489ceaae22dbc7ea
@@ -28,18 +28,18 @@ stages:
         dataset.name: answerable
         dataset.path: bdsaglam/musique-sweep
         dataset.split: train
-        qa.few_shot_examples: auto-interweave/cot.json
+        qa.few_shot_examples: manual/ccot.json
         qa.model: llama-3-70b-tgi
-        qa.n_shot: 1
-        qa.system_prompt: cot/format-thought.txt
+        qa.n_shot: 2
+        qa.system_prompt: ccot/format-thought.txt
         qa.temperature: 0.5
         qa.user_prompt_template: cq.txt
-        run: 3
+        run: 1
     outs:
     - path: data/generated/qa-results/
       hash: md5
-      md5: f3a80e900b6f95ba303e4862e3b3f318.dir
-      size: 1261529
+      md5: 9797bec24fdc0ebaf84c6d64db4b0bc7.dir
+      size: 1328420
       nfiles: 301
   evaluate-answers:
     cmd: python evaluate_answers.py --dataset-path bdsaglam/musique-sweep --dataset-name
@@ -47,8 +47,8 @@ stages:
     deps:
     - path: data/generated/qa-results/
       hash: md5
-      md5: f3a80e900b6f95ba303e4862e3b3f318.dir
-      size: 1261529
+      md5: 9797bec24fdc0ebaf84c6d64db4b0bc7.dir
+      size: 1328420
       nfiles: 301
     - path: evaluate_answers.py
       hash: md5
@@ -59,11 +59,18 @@ stages:
         dataset.name: answerable
         dataset.path: bdsaglam/musique-sweep
         dataset.split: train
+        qa.few_shot_examples: manual/ccot.json
+        qa.model: llama-3-70b-tgi
+        qa.n_shot: 2
+        qa.system_prompt: ccot/format-thought.txt
+        qa.temperature: 0.5
+        qa.user_prompt_template: cq.txt
+        run: 1
     outs:
     - path: data/generated/evals/
       hash: md5
-      md5: 7ff8b58cd41a89f8cbac83083c597f74.dir
-      size: 42434
+      md5: 5de5de76e78cc7a6edef24e3728ecb96.dir
+      size: 47399
       nfiles: 301
   report:
     cmd: python report.py --dataset-path bdsaglam/musique-sweep --dataset-name answerable
@@ -72,13 +79,13 @@ stages:
     deps:
     - path: data/generated/evals/
       hash: md5
-      md5: 7ff8b58cd41a89f8cbac83083c597f74.dir
-      size: 42434
+      md5: 5de5de76e78cc7a6edef24e3728ecb96.dir
+      size: 47399
       nfiles: 301
     - path: data/generated/qa-results/
       hash: md5
-      md5: f3a80e900b6f95ba303e4862e3b3f318.dir
-      size: 1261529
+      md5: 9797bec24fdc0ebaf84c6d64db4b0bc7.dir
+      size: 1328420
       nfiles: 301
     - path: report.py
       hash: md5
@@ -92,13 +99,13 @@ stages:
     outs:
     - path: data/generated/reports/efficiency.json
       hash: md5
-      md5: 2788bbbd9e2944c88598888c3014c2d3
-      size: 598
+      md5: 2024ce7a868a4c6f996942fe4fa0dd27
+      size: 641
     - path: data/generated/reports/results.jsonl
       hash: md5
-      md5: a8364439b73a88e7f6ddd55f2651c99b
-      size: 1227381
+      md5: 374eec713ab41721cd2a18afc497994b
+      size: 1299502
     - path: data/generated/reports/scores.json
       hash: md5
-      md5: 857f33a49aad4f08252c35c168ebf618
-      size: 337
+      md5: 3cce39489511b3d418ff50f466f955a7
+      size: 395
