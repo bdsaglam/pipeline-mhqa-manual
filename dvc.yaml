@@ -48,6 +48,13 @@ stages:
       - dataset.path
       - dataset.name
       - dataset.split
+      - qa.model
+      - qa.temperature
+      - qa.system_prompt
+      - qa.user_prompt_template
+      - qa.few_shot_examples
+      - qa.n_shot
+      - run
 
   report:
     cmd: >-
