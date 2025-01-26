@@ -13,8 +13,8 @@ stages:
       size: 3792
     - path: data/raw/few-shot-examples/manual/direct.json
       hash: md5
-      md5: a103f39c617bfcf05538c84c77f6616d
-      size: 1553
+      md5: 3273a9a663dc3b22f226850af156e932
+      size: 1595
     - path: data/raw/system-prompts/direct/format-few.txt
       hash: md5
       md5: 26f6441d1691aea327a48210317d7b47
