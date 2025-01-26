@@ -1,0 +1,111 @@
+schema: '2.0'
+stages:
+  answer-questions:
+    cmd: python answer_questions.py --dataset-path bdsaglam/musique-mini --dataset-name
+      answerable --dataset-split train --model llama-3-70b-tgi --temperature 0.7 --system-prompt-filepath
+      data/raw/system-prompts/cok/adapted.txt --user-prompt-template-filepath data/raw/user-prompt-templates/cq.txt
+      --few-shot-examples-filepath data/raw/few-shot-examples/manual/cok.json --n-shot
+      2 --out data/generated/qa-results/
+    deps:
+    - path: answer_questions.py
+      hash: md5
+      md5: db5a3b8c57edcaed53eff594bb0f7fe0
+      size: 3793
+    - path: data/raw/few-shot-examples/manual/cok.json
+      hash: md5
+      md5: 846b9910fe7418a664d80630ae7e6b9f
+      size: 2036
+    - path: data/raw/system-prompts/cok/adapted.txt
+      hash: md5
+      md5: be4ddbca16c305245e21ab876f465d07
+      size: 217
+    - path: data/raw/user-prompt-templates/cq.txt
+      hash: md5
+      md5: ac4fa9e31f4b2f7d489ceaae22dbc7ea
+      size: 41
+    params:
+      params.yaml:
+        dataset.name: answerable
+        dataset.path: bdsaglam/musique-mini
+        dataset.split: train
+        qa.few_shot_examples: manual/cok.json
+        qa.model: llama-3-70b-tgi
+        qa.n_shot: 2
+        qa.system_prompt: cok/adapted.txt
+        qa.temperature: 0.7
+        qa.user_prompt_template: cq.txt
+        run: 1
+    outs:
+    - path: data/generated/qa-results/
+      hash: md5
+      md5: 377f9aac2228dbd63eb5c6c0a8e69f22.dir
+      size: 1436862
+      nfiles: 301
+  evaluate-answers:
+    cmd: python evaluate_answers.py --dataset-path bdsaglam/musique-mini --dataset-name
+      answerable --dataset-split train --qa-dir data/generated/qa-results/ --out data/generated/evals/
+    deps:
+    - path: data/generated/qa-results/
+      hash: md5
+      md5: 377f9aac2228dbd63eb5c6c0a8e69f22.dir
+      size: 1436862
+      nfiles: 301
+    - path: evaluate_answers.py
+      hash: md5
+      md5: c8ce61d45d52c5112b749ceee603cb4c
+      size: 1940
+    params:
+      params.yaml:
+        dataset.name: answerable
+        dataset.path: bdsaglam/musique-mini
+        dataset.split: train
+        qa.few_shot_examples: manual/cok.json
+        qa.model: llama-3-70b-tgi
+        qa.n_shot: 2
+        qa.system_prompt: cok/adapted.txt
+        qa.temperature: 0.7
+        qa.user_prompt_template: cq.txt
+        run: 1
+    outs:
+    - path: data/generated/evals/
+      hash: md5
+      md5: 77488eabe0a079ca50157c6b391e4d66.dir
+      size: 50546
+      nfiles: 301
+  report:
+    cmd: python report.py --dataset-path bdsaglam/musique-mini --dataset-name answerable
+      --dataset-split train --qa-dir data/generated/qa-results/ --evals-dir data/generated/evals/
+      --out data/generated/reports/
+    deps:
+    - path: data/generated/evals/
+      hash: md5
+      md5: 77488eabe0a079ca50157c6b391e4d66.dir
+      size: 50546
+      nfiles: 301
+    - path: data/generated/qa-results/
+      hash: md5
+      md5: 377f9aac2228dbd63eb5c6c0a8e69f22.dir
+      size: 1436862
+      nfiles: 301
+    - path: report.py
+      hash: md5
+      md5: 66801b6ff2f7ae0d4ee65c93eb0eaea3
+      size: 3265
+    params:
+      params.yaml:
+        dataset.name: answerable
+        dataset.path: bdsaglam/musique-mini
+        dataset.split: train
+    outs:
+    - path: data/generated/reports/efficiency.json
+      hash: md5
+      md5: e19269985698ce0ab631d344fea343f8
+      size: 644
+    - path: data/generated/reports/results.jsonl
+      hash: md5
+      md5: 038afdabe4611aa5c7bc2e570c45bdaf
+      size: 1411598
+    - path: data/generated/reports/scores.json
+      hash: md5
+      md5: fb60284541108d0a373a8556ce9640d8
+      size: 392
