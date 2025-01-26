@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from rich.console import Console
 from tqdm import tqdm
 
-from bellem.musique.qa import make_qa_func
+from bellem.musique.qa import make_qa_func, self_consistency_decorator
 from bellem.musique.singlehop import BaselineSingleHop
 from bellem.utils import set_seed
 
@@ -68,7 +68,9 @@ def main(
     system_prompt_filepath: str = typer.Option(default=UNSET),
     user_prompt_template_filepath: str = typer.Option(default=UNSET),
     few_shot_examples_filepath: str = typer.Option(default=UNSET),
-    n_shot: int = typer.Option(0),
+    n_shot: int = typer.Option(default=0, help="Number of few-shot examples to use"),
+    n_sc: int = typer.Option(default=1, help="Number of self-consistency samples"),
+    n_workers: int = typer.Option(16),
     ignore_errors: bool = typer.Option(False),
     resume: bool = typer.Option(False),
 ):
@@ -94,11 +96,13 @@ def main(
     qa_func = make_qa_func(**qa_kwargs)
     openai_client = OpenAI(max_retries=3)
     qa_func = partial(qa_func, model_name=model, completion_kwargs={"temperature": temperature}, client=openai_client)
+    if n_sc > 1:
+        qa_func = self_consistency_decorator(qa_func, n_samples=n_sc)
 
     qa_pipeline = BaselineSingleHop(qa_func, perfect_retrieval_func)
 
     # Process the samples
-    with ThreadPoolExecutor(max_workers=16) as executor:
+    with ThreadPoolExecutor(max_workers=n_workers) as executor:
         futures = [
             executor.submit(
                 process_example,
