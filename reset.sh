@@ -11,7 +11,7 @@ mv .dvc/config tmp/backup/.dvc/config
 mv .dvc/.gitignore tmp/backup/.dvc/.gitignore
 
 rm -rf data/generated
-cp -r data/ tmp/backup/data/
+mv -r data/ tmp/backup/data/
 
 # Destroy
 
@@ -39,6 +39,6 @@ mv tmp/backup/.dvc/.gitignore .dvc/.gitignore
 rm .dvc/.gitignore
 mv .dvc/.gitignore.bak .dvc/.gitignore
 
-mv tmp/backup/data data
+cp -r tmp/backup/data data
 
 dvc add data/raw
