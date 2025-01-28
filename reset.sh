@@ -11,7 +11,7 @@ mv .dvc/config tmp/backup/.dvc/config
 mv .dvc/.gitignore tmp/backup/.dvc/.gitignore
 
 rm -rf data/generated
-mv -r data/ tmp/backup/data/
+mv data/ tmp/backup/data/
 
 # Destroy
 

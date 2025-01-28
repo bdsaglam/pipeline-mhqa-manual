@@ -1,14 +1,14 @@
 dataset:
-  path: bdsaglam/musique-sweep
+  path: bdsaglam/musique
   name: answerable
-  split: train
+  split: validation
 
 qa:
   model: llama-3-70b-tgi
-  temperature: 0.5
+  temperature: 0.0
   system_prompt: direct/format-few.txt
   user_prompt_template: cq.txt
-  few_shot_examples: manual/direct.json
+  few_shot_examples: semi/direct.json
   n_shot: 0
   n_sc: 1
 
