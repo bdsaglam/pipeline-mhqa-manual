@@ -70,7 +70,7 @@ def main(
     few_shot_examples_filepath: str = typer.Option(default=UNSET),
     n_shot: int = typer.Option(default=0, help="Number of few-shot examples to use"),
     n_sc: int = typer.Option(default=1, help="Number of self-consistency samples"),
-    n_workers: int = typer.Option(8),
+    n_workers: int = typer.Option(16),
     ignore_errors: bool = typer.Option(False),
     resume: bool = typer.Option(False),
 ):
