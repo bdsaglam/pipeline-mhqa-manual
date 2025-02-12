@@ -5,16 +5,15 @@ from functools import partial
 from pathlib import Path
 from typing import Callable
 
-from openai import OpenAI
 import typer
-from datasets import load_dataset
-from dotenv import load_dotenv
-from rich.console import Console
-from tqdm import tqdm
-
 from bellem.musique.qa import make_qa_func, self_consistency_decorator
 from bellem.musique.singlehop import BaselineSingleHop
 from bellem.utils import set_seed
+from datasets import load_dataset
+from dotenv import load_dotenv
+from openai import OpenAI
+from rich.console import Console
+from tqdm import tqdm
 
 print = Console(stderr=True).print
 
@@ -113,6 +112,7 @@ def main(
                 resume=resume,
             )
             for example in examples
+            if example["id"] in ["2hop__784447_126070", "2hop__823584_776926"]
         ]
 
         for future in tqdm(as_completed(futures), total=len(examples), desc="Answering questions"):
