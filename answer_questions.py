@@ -112,7 +112,6 @@ def main(
                 resume=resume,
             )
             for example in examples
-            if example["id"] in ["2hop__784447_126070", "2hop__823584_776926"]
         ]
 
         for future in tqdm(as_completed(futures), total=len(examples), desc="Answering questions"):
