@@ -1,113 +1,113 @@
 schema: '2.0'
 stages:
   answer-questions:
-    cmd: python answer_questions.py --dataset-path bdsaglam/musique --dataset-name
-      answerable --dataset-split train --model deepseek-r1-llama-70b --temperature
-      0.0 --system-prompt-filepath data/raw/system-prompts/empty.txt --user-prompt-template-filepath
-      data/raw/user-prompt-templates/icq-format.txt --few-shot-examples-filepath data/raw/few-shot-examples/manual/reasoning.json
+    cmd: python answer_questions.py --dataset-path bdsaglam/drop-musique-mini --dataset-name
+      default --dataset-split train --model qwen-2.5-32b --temperature 0.0 --system-prompt-filepath
+      data/raw/system-prompts/direct/format-few.txt --user-prompt-template-filepath
+      data/raw/user-prompt-templates/cq.txt --few-shot-examples-filepath data/raw/few-shot-examples/manual/direct.json
       --n-shot 0 --n-sc 1 --out data/generated/qa-results/
     deps:
     - path: answer_questions.py
       hash: md5
-      md5: cd86ab8605aebac5508df46f8f75c076
-      size: 4167
-    - path: data/raw/few-shot-examples/manual/reasoning.json
+      md5: 81c9934941cee9c5435e1635a0d85c9e
+      size: 4086
+    - path: data/raw/few-shot-examples/manual/direct.json
       hash: md5
       md5: 3273a9a663dc3b22f226850af156e932
       size: 1595
-    - path: data/raw/system-prompts/empty.txt
+    - path: data/raw/system-prompts/direct/format-few.txt
       hash: md5
-      md5: 943e842fab4e3109d67d5650020f3535
-      size: 28
-    - path: data/raw/user-prompt-templates/icq-format.txt
+      md5: 26f6441d1691aea327a48210317d7b47
+      size: 101
+    - path: data/raw/user-prompt-templates/cq.txt
       hash: md5
-      md5: baa386e53bdf36983b1c6fa41f379776
-      size: 145
+      md5: ac4fa9e31f4b2f7d489ceaae22dbc7ea
+      size: 41
     params:
       params.yaml:
-        dataset.name: answerable
-        dataset.path: bdsaglam/musique
+        dataset.name: default
+        dataset.path: bdsaglam/drop-musique-mini
         dataset.split: train
-        qa.few_shot_examples: manual/reasoning.json
-        qa.model: deepseek-r1-llama-70b
+        qa.few_shot_examples: manual/direct.json
+        qa.model: qwen-2.5-32b
         qa.n_sc: 1
         qa.n_shot: 0
-        qa.system_prompt: empty.txt
+        qa.system_prompt: direct/format-few.txt
         qa.temperature: 0.0
-        qa.user_prompt_template: icq-format.txt
+        qa.user_prompt_template: cq.txt
         run: 1
     outs:
     - path: data/generated/qa-results/
       hash: md5
-      md5: 8eca717d3492d9d43b86a1b96f4602be.dir
-      size: 10328
-      nfiles: 3
+      md5: f04267c709f53d4c41947e1c204152da.dir
+      size: 289378
+      nfiles: 101
   evaluate-answers:
-    cmd: python evaluate_answers.py --dataset-path bdsaglam/musique --dataset-name
-      answerable --dataset-split train --qa-dir data/generated/qa-results/ --out data/generated/evals/
+    cmd: python evaluate_answers.py --dataset-path bdsaglam/drop-musique-mini --dataset-name
+      default --dataset-split train --qa-dir data/generated/qa-results/ --out data/generated/evals/
     deps:
     - path: data/generated/qa-results/
       hash: md5
-      md5: 8eca717d3492d9d43b86a1b96f4602be.dir
-      size: 10328
-      nfiles: 3
+      md5: f04267c709f53d4c41947e1c204152da.dir
+      size: 289378
+      nfiles: 101
     - path: evaluate_answers.py
       hash: md5
       md5: c8ce61d45d52c5112b749ceee603cb4c
       size: 1940
     params:
       params.yaml:
-        dataset.name: answerable
-        dataset.path: bdsaglam/musique
+        dataset.name: default
+        dataset.path: bdsaglam/drop-musique-mini
         dataset.split: train
-        qa.few_shot_examples: manual/reasoning.json
-        qa.model: deepseek-r1-llama-70b
+        qa.few_shot_examples: manual/direct.json
+        qa.model: qwen-2.5-32b
         qa.n_sc: 1
         qa.n_shot: 0
-        qa.system_prompt: empty.txt
+        qa.system_prompt: direct/format-few.txt
         qa.temperature: 0.0
-        qa.user_prompt_template: icq-format.txt
+        qa.user_prompt_template: cq.txt
         run: 1
     outs:
     - path: data/generated/evals/
       hash: md5
-      md5: 0b16c06674b2e047f23a967f552ed580.dir
-      size: 342
-      nfiles: 3
+      md5: c1400755a271b1ba37453e52b37654fa.dir
+      size: 14875
+      nfiles: 101
   report:
-    cmd: python report.py --dataset-path bdsaglam/musique --dataset-name answerable
-      --dataset-split train --qa-dir data/generated/qa-results/ --evals-dir data/generated/evals/
-      --out data/generated/reports/
+    cmd: python report.py --dataset-path bdsaglam/drop-musique-mini --dataset-name
+      default --dataset-split train --qa-dir data/generated/qa-results/ --evals-dir
+      data/generated/evals/ --out data/generated/reports/
     deps:
     - path: data/generated/evals/
       hash: md5
-      md5: 0b16c06674b2e047f23a967f552ed580.dir
-      size: 342
-      nfiles: 3
+      md5: c1400755a271b1ba37453e52b37654fa.dir
+      size: 14875
+      nfiles: 101
     - path: data/generated/qa-results/
       hash: md5
-      md5: 8eca717d3492d9d43b86a1b96f4602be.dir
-      size: 10328
-      nfiles: 3
+      md5: f04267c709f53d4c41947e1c204152da.dir
+      size: 289378
+      nfiles: 101
     - path: report.py
       hash: md5
       md5: 66801b6ff2f7ae0d4ee65c93eb0eaea3
       size: 3265
     params:
       params.yaml:
-        dataset.name: answerable
-        dataset.path: bdsaglam/musique
+        dataset.name: default
+        dataset.path: bdsaglam/drop-musique-mini
         dataset.split: train
     outs:
     - path: data/generated/reports/efficiency.json
       hash: md5
-      md5: 7b478410842508fa2969a7649652a209
-      size: 589
+      md5: 376089215f0c930635513845856aadbb
+      size: 612
     - path: data/generated/reports/results.jsonl
       hash: md5
-      md5: 620b4c476a89d2243eecc22634b8d465
-      size: 10330
+      md5: 4c78db719c8b500ce22d029c093d8ccc
+      size: 291307
     - path: data/generated/reports/scores.json
       hash: md5
-      md5: 31884fc39d65ae408290642388c8c25d
-      size: 139
+      md5: 330f01e4244fb906a0b8555d550a3e87
+      size: 173
