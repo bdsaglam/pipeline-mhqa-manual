@@ -1,6 +1,6 @@
 #!/bin/sh
 
-RESULTS_PATH="data/generated/evaluation/results.jsonl"
+RESULTS_PATH="data/generated/reports/results.jsonl"
 
 get_results() {
     local exp_name="$1"
@@ -10,7 +10,6 @@ get_results() {
     dvc checkout
 }
 
-exp_names=($@)
-for exp_name in "${exp_names[@]}"; do
+for exp_name in "$@"; do
     get_results "$exp_name"
 done
