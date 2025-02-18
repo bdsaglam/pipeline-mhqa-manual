@@ -25,7 +25,7 @@ set_seed(89)
 
 UNSET = "UNSET"
 
-def perfect_retrieval_func(docs: list[dict], query: str):
+def golden_retrieval_func(docs: list[dict], query: str):
     return [doc for doc in docs if doc["is_supporting"]]
 
 
@@ -98,7 +98,7 @@ def main(
     if n_sc > 1:
         qa_func = self_consistency_decorator(qa_func, n_samples=n_sc)
 
-    qa_pipeline = BaselineSingleHop(qa_func, perfect_retrieval_func)
+    qa_pipeline = BaselineSingleHop(qa_func, golden_retrieval_func)
 
     # Process the samples
     with ThreadPoolExecutor(max_workers=n_workers) as executor:

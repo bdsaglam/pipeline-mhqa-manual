@@ -1,14 +1,14 @@
 dataset:
-  path: bdsaglam/musique
-  name: answerable
+  path: bdsaglam/drop-musique-mini
+  name: default
   split: train
 
 qa:
-  model: deepseek-r1-llama-70b
+  model: qwen-2.5-32b
   temperature: 0.0
-  system_prompt: empty.txt
-  user_prompt_template: icq-format.txt
-  few_shot_examples: manual/reasoning.json
+  system_prompt: direct/format-few.txt
+  user_prompt_template: cq.txt
+  few_shot_examples: manual/direct.json
   n_shot: 0
   n_sc: 1
 
