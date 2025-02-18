@@ -4,7 +4,7 @@ dataset:
   split: train
 
 qa:
-  model: qwen-2.5-32b
+  model: llama-3-8b
   temperature: 0.0
   system_prompt: direct/format-few.txt
   user_prompt_template: cq.txt
