@@ -11,7 +11,7 @@ from bellem.musique.singlehop import BaselineSingleHop
 from bellem.utils import set_seed
 from datasets import load_dataset
 from dotenv import load_dotenv
-from openai import OpenAI
+from openai import NOT_GIVEN, OpenAI
 from rich.console import Console
 from tqdm import tqdm
 
@@ -24,6 +24,7 @@ set_seed(89)
 
 
 UNSET = "UNSET"
+
 
 def golden_retrieval_func(docs: list[dict], query: str):
     return [doc for doc in docs if doc["is_supporting"]]
@@ -64,6 +65,7 @@ def main(
     out: Path = typer.Option(...),
     model: str = typer.Option("llama-3-70b-tgi"),
     temperature: float = typer.Option(0.1),
+    top_p: float = typer.Option(default_factory = lambda: NOT_GIVEN()),
     system_prompt_filepath: str = typer.Option(default=UNSET),
     user_prompt_template_filepath: str = typer.Option(default=UNSET),
     few_shot_examples_filepath: str = typer.Option(default=UNSET),
@@ -94,7 +96,12 @@ def main(
 
     qa_func = make_qa_func(**qa_kwargs)
     openai_client = OpenAI(max_retries=3)
-    qa_func = partial(qa_func, model_name=model, completion_kwargs={"temperature": temperature}, client=openai_client)
+    qa_func = partial(
+        qa_func,
+        model_name=model,
+        completion_kwargs={"temperature": temperature, "top_p": top_p},
+        client=openai_client,
+    )
     if n_sc > 1:
         qa_func = self_consistency_decorator(qa_func, n_samples=n_sc)
 
@@ -114,7 +121,9 @@ def main(
             for example in examples
         ]
 
-        for future in tqdm(as_completed(futures), total=len(examples), desc="Answering questions"):
+        for future in tqdm(
+            as_completed(futures), total=len(examples), desc="Answering questions"
+        ):
             future.result()
 
     with open(out / "timestamp.txt", "w") as f:

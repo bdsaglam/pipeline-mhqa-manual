@@ -7,6 +7,7 @@ stages:
       --dataset-split ${dataset.split}
       --model ${qa.model}
       --temperature ${qa.temperature}
+      --top-p ${qa.top_p}
       --system-prompt-filepath data/raw/system-prompts/${qa.system_prompt}
       --user-prompt-template-filepath data/raw/user-prompt-templates/${qa.user_prompt_template}
       --few-shot-examples-filepath data/raw/few-shot-examples/${qa.few_shot_examples}
@@ -26,6 +27,7 @@ stages:
       - dataset.split
       - qa.model
       - qa.temperature
+      - qa.top_p
       - qa.system_prompt
       - qa.user_prompt_template
       - qa.few_shot_examples
@@ -52,6 +54,7 @@ stages:
       - dataset.split
       - qa.model
       - qa.temperature
+      - qa.top_p
       - qa.system_prompt
       - qa.user_prompt_template
       - qa.few_shot_examples
