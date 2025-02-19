@@ -65,7 +65,7 @@ def main(
     out: Path = typer.Option(...),
     model: str = typer.Option("llama-3-70b-tgi"),
     temperature: float = typer.Option(0.1),
-    top_p: float = typer.Option(default_factory = lambda: NOT_GIVEN()),
+    top_p: float = typer.Option(0.999),
     system_prompt_filepath: str = typer.Option(default=UNSET),
     user_prompt_template_filepath: str = typer.Option(default=UNSET),
     few_shot_examples_filepath: str = typer.Option(default=UNSET),
@@ -96,10 +96,13 @@ def main(
 
     qa_func = make_qa_func(**qa_kwargs)
     openai_client = OpenAI(max_retries=3)
+    completion_kwargs = {"temperature": temperature}
+    if top_p < 0.999:
+        completion_kwargs["top_p"] = top_p
     qa_func = partial(
         qa_func,
         model_name=model,
-        completion_kwargs={"temperature": temperature, "top_p": top_p},
+        completion_kwargs=completion_kwargs,
         client=openai_client,
     )
     if n_sc > 1:

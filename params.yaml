@@ -6,7 +6,7 @@ dataset:
 qa:
   model: llama-3-8b
   temperature: 0.0
-  top_p: null
+  top_p: 0.9999
   system_prompt: direct/format-few.txt
   user_prompt_template: cq.txt
   few_shot_examples: manual/direct.json
