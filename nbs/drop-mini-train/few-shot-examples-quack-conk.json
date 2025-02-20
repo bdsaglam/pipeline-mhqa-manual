@@ -1,0 +1,47 @@
+[
+  [
+    {
+      "id": "history_2374-be4944dd-6e6f-43c5-9e50-9e7761fc2f73",
+      "context": "2009 Community Survey According to the 2009 American Community Survey, White Americans of both Hispanic and non-Hispanic origin represented over one-fifth (22.9%) of the Bronxs population. However, non-Hispanic whites formed under one-eighth (12.1%) of the population, down from 34.4% in 1980. Out of all five boroughs, the Bronx has the lowest number and percentage of white residents. 320,640 whites called the Bronx home, of which 168,570 were non-Hispanic whites. The majority of the non-Hispanic European American population is of Italian and Irish descent. Italian American numbered over 55,000 individuals and made up 3.9% of the population. Irish American numbered over 43,500 individuals and made up 3.1% of the population. German Americans and Polish Americans made up 1.4% and 0.8% of the population respectively.",
+      "question": "How many of the whites in the Bronx are Hispanic?",
+      "generation": "Thought: To find the number of Hispanic whites, we need to subtract the number of non-Hispanic whites from the total number of whites. Total whites = 320,640, non-Hispanic whites = 168,570.\nAnswer: 152,070",
+      "n_hops": 1
+    }
+  ],
+  [
+    {
+      "id": "history_4133-b6cc993b-2349-4d98-9b18-dcdd99649d62",
+      "context": "Nintendogs also had very successful launches in North America and Europe, with first week sales of over 250,000 and 160,000 respectively. Lab & Friends received a \"Double Platinum\" sales award from the Entertainment and Leisure Software Publishers Association (ELSPA), indicating sales of at least 600,000 copies in the United Kingdom. ELSPA also gave Dalmatian & Friends a \"Platinum\" award, for at least 300,000 sales in the United Kingdom.  By August 2006, in the United States, Chihuahua & Friends had sold 570,000 copies and earned $17 million; Labrador & Friends had sold 620,000 copies and earned $19 million; and Dachshund & Friends had sold 730,000 copies and earned $22 million. During the period between January 2000 and August 2006, the games were respectively the 50th, 44th and 32nd highest-selling games launched for the Game Boy Advance, Nintendo DS or PlayStation Portable in the United States.",
+      "question": "Which game sold the most money,Dachshund & Friends or Labrador & Friends",
+      "generation": "Thought: Compare the earnings of Dachshund & Friends and Labrador & Friends. Dachshund & Friends earned $22 million, while Labrador & Friends earned $19 million.\nAnswer: Dachshund & Friends",
+      "n_hops": 1
+    }
+  ],
+  [
+    {
+      "id": "history_2149-c6201520-5504-427e-abfc-7f74d531bd53",
+      "context": "In the city, the population was distributed as 21.3% under the age of 18, 14.6% from 18 to 24, 33.2% from 25 to 44, 20.9% from 45 to 64, and 10.0% who were 65 years of age or older. The median age was 33 years. For every 100 females, there were 96.5 males. For every 100 females age 18 and over, there were 94.3 males.",
+      "question": "Which age group is smaller: under the age of 18 or 18 to 24?",
+      "generation": "Thought: Compare the percentages of the two age groups: 21.3% for under 18 and 14.6% for 18 to 24.\nAnswer: 18 to 24",
+      "n_hops": 1
+    }
+  ],
+  [
+    {
+      "id": "history_858-57fada68-04ec-4f31-8b57-cfac2807f34c",
+      "context": "After the fall of Pegu, remnants of Mon resistance fell back to the upper Tenasserim peninsula , and remained active there with Siamese support. However, the resistance was disorganized, and did not control any major towns. It remained active only because Konbaung's control of the upper Tenasserim peninsula in 1757-1759 was still largely nominal. Its effective control still did not extend beyond Martaban as the majority of the Konbaung armies were back north in Manipur and in the northern Shan states. However, no single southern leader emerged to rally the Mon populace as Alaungpaya did with the Burmans in 1752. A rebellion broke out in 1758 throughout Lower Burma but was put down by local Konbaung garrisons. The window of opportunity came to a close in the second half of 1759 when the Konbaung armies, having conquered Manipur and the northern Shan states, were back down south, preparing for their invasion of the Tenasserim coast and Siam. The Konbaung armies seized the upper Tenasserim coast following the Burmese-Siamese War , and pushed out the Mon resistance farther down the coast.  The resistance was driven out of Tenasserim in 1765 when Alaungpaya's son Hsinbyushin seized the lower coastline as part of the Burmese-Siamese War .",
+      "question": "Which happened first, Konbaung's control of the upper Tenasserim peninsula or the resistance being driven out of Tenasserim?",
+      "generation": "Thought: The text states that Konbaung's control of the upper Tenasserim peninsula was in 1757-1759, while the resistance was driven out of Tenasserim in 1765. \nAnswer: Konbaung's control",
+      "n_hops": 1
+    }
+  ],
+  [
+    {
+      "id": "history_1944-b8fbaceb-4b21-46ac-b22c-283c1301785e",
+      "context": "In the county, the population was spread out with 22.7% under the age of 18, 9.0% from 18 to 24, 28.9% from 25 to 44, 26.7% from 45 to 64, and 12.7% who were 65 years of age or older.  The median age was 37.8 years. For every 100 females, there were 115.9 males.  For every 100 females age 18 and over, there were 127.5 males.",
+      "question": "How many more males per 100 were there than females?",
+      "generation": "Thought: Calculate the difference between the number of males and females per 100 for the total population and the population 18 and over. \nFor the total population: 115.9 males - 100 females = 15.9 more males per 100 females.\nFor the population 18 and over: 127.5 males - 100 females = 27.5 more males per 100 females.\nAnswer: 15.9",
+      "n_hops": 1
+    }
+  ]
+]
